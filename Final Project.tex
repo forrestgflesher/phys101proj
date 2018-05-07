@@ -23,6 +23,13 @@
 \newenvironment{statement}[1]{\smallskip\noindent\color[rgb]{1.00,0.00,0.50} {\bf #1.}}{}
 \allowdisplaybreaks[1]
 
+% margin notes
+\usepackage{xargs}                      
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\newcommandx{\nat}[2][1=]{\todo[linecolor=purple,backgroundcolor=purple!25,bordercolor=purple,#1]{#2}}
+\newcommandx{\martin}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\forrest}[2][1=]{\todo[linecolor=green,backgroundcolor=green!25,bordercolor=green,#1]{#2}}
+
 
 \newtheorem{theorem}{Theorem}
 \newtheorem*{proposition}{Proposition}
@@ -71,425 +78,459 @@
 \maketitle
 
 \section*{Introduction}
-Hello, this is the section that contains useless wordy information that makes our project look longer and more professional.  (I also added fancy sounding section titles ooooh)  Probably should say something about the notion of geodesics in general - distances on spheres, differential geometry, the original notion of geodesy on earth, etc.  Should also mention something about how the word ``geodesic" comes from ancient Greek ``\textgamma \texteta " and ``\textdelta \textiota \textalpha \textiota \textrho \textepsilon \textomega "  meaning ``earth" and ``divide" respectively.  
+	In differential topology, a \emph{geodesic} is a constant-velocity path that locally optimizes length on a (possibly curved) smooth manifold. 
+	Specifically, every open neighborhood in a smooth manifold is parametrized by a system of local coordinates. A geodesic is a curve that minimizes the length function in each system of local coordinates. This condition is equivalent to satisfying the \emph{geodesic equation} in Part (a). However, geodesics are not global shortest paths: on a sphere, both the short arc and long arc of a great circle are geodesics between their shared endpoints. 
+	Geodesics preserve direction, that is, a tangent vector remains parallel to itself as it is dragged along the curve. 
+
+	In the theory of relativity, spacetime is a curved manifold, so geodesics characterize particle movement. In particular, the wordline of a particle is a type of geodesic. The theory of relativity poses that gravitational fields, which influence the movement of particles, in fact arise from the curvature of spacetime. Gravity is the way in which spacetime's curvature manifests in our perceivable world. In this problem, we will show how gravity arises from the curvature of spacetime by deriving Newtonian gravitation from relativistic geodesic equations.  
+
+% Hello, this is the section that contains useless wordy information that makes our project look longer and more professional.  (I also added fancy sounding section titles ooooh)  Probably should say something about the notion of geodesics in general - distances on spheres, differential geometry, the original notion of geodesy on earth, etc.  Should also mention something about how the word ``geodesic" comes from ancient Greek ``\textgamma \texteta " and ``\textdelta \textiota \textalpha \textiota \textrho \textepsilon \textomega "  meaning ``earth" and ``divide" respectively.  
+
+% Also mention:
+% Spacetime is a curved manifold, shortest paths in curved manifolds are given by geodesics, gravitational fields arise from the curvature of spacetime (like, gravity is how the curvature of spacetime manifests!!) which is what we're trying to show in the problem
+
+% Maybe: tensors are functions on manifolds invariant under coordinate choices, metric tensors allow us to do calculus 
 
 \section{The Geodesic Equation}
 
-In this section, we use the fact that 
-\[
-\frac{d^2 x^{ \prime \mu}}{d \lambda^2} = 0
-\]
-to show that in an arbitrary set of coordinates $x^{\mu}(\lambda)$, we have that in a vanishingly small spacetime region, the trajectory of the particle satisfies the \textit{geodesic equation}, which can be defined as
-\[
-\frac{ d^2 x^{ \mu } }{d \lambda^2 } = 
-- \Gamma^{ \mu }_{ \nu \rho } 
-\frac{d x^{\nu} }{ d \lambda } 
-\frac{ d x^{ \rho } }{d \lambda} . 
-\]
-Here, the $\Gamma^{\mu}_{\nu \rho}$ are the \textit{Christoffel coefficients}, which can be defined as 
-\[
-\Gamma_{ \nu \rho }^{ \mu } \equiv 
-\frac{ \partial x^{ \mu } }{ \partial x^{ \prime \sigma } }
-\frac{ \partial^2 x^{ \prime \sigma } }{ \partial x^{ \nu } \partial x^{ \rho } }.
-\]
-To derive this geodesic equation, we begin by noting that, by the chain rule, we have
-\[
-\frac{ d x^{ \prime \mu } }{ d \lambda } = 
-\frac{  \partial x^{ \prime \mu} }{ \partial x^{ \rho } } 
-\frac{ d x^{ \rho } }{ d \lambda }.
-\]
-Now, we can differentiate with respect to $\lambda$, and use the chain rule once again, to obtain 
-\[
-\frac{ d^2 x^{ \prime \mu } }{ d \lambda^2 } = 
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \rho } } 
-\frac{ d^2 x^{ \rho } }{ d \lambda^2 }
-+ 
-\frac{ \partial^2 x^{ \prime \mu } }{\partial x^{ \rho } \partial x^{ \nu } }
-\frac{ \partial x^{ \nu } }{ \partial \lambda }
-\frac{ \partial x^{ \rho } }{\partial \lambda } .
-\]
-But this must be equal to zero, so that we have 
-\[
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \rho } } 
-\frac{ d^2 x^{ \rho } }{ d \lambda^2 } 
-=
--
-\frac{ \partial^2 x^{ \prime \mu } }{\partial x^{ \rho } \partial x^{ \nu } }
-\frac{ \partial x^{ \nu } }{ \partial \lambda }
-\frac{ \partial x^{ \rho } }{\partial \lambda }.
-\]
-This almost gives us our desired geodesic equation.  To finish the derivation, we can multiply both sides of the above equation by the partial derivative
-\[
-\frac{ \partial x^{ \mu } }{ \partial x^{ \prime \mu } }
-\]
-to obtain
-\[
-\frac{ \partial x^{ \mu } }{ \partial x^{ \prime \mu } }
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \rho } } 
-\frac{ d^2 x^{ \rho } }{ d \lambda^2 } \
-=
--
-\frac{ \partial x^{ \mu } }{ \partial x^{ \prime \mu } }
-\frac{ \partial^2 x^{ \prime \mu } }{\partial x^{ \rho } \partial x^{ \nu } }
-\frac{ \partial x^{ \nu } }{ \partial \lambda }
-\frac{ \partial x^{ \rho } }{\partial \lambda }.
-\]
-By the chain rule (and by noting that the derivative of $x^{ \rho}$ is a total derivative), the left hand side of this above equation simplifies to 
-\[
-\frac{ \partial^2 x^{ \mu } }{ \partial \lambda^2 }.
-\]
-Thus, we have that 
-\[
-\frac{ \partial^2 x^{ \mu } }{ \partial \lambda^2 }
-= 
--
-\left( 
-\frac{ \partial x^{ \mu } }{ \partial x^{ \prime \mu } }
-\frac{ \partial^2 x^{ \prime \mu } }{\partial x^{ \rho } \partial x^{ \nu } }
-\right)
-\frac{ \partial x^{ \nu } }{ \partial \lambda }
-\frac{ \partial x^{ \rho } }{\partial \lambda }
-=
--
-\Gamma^{\mu}_{\rho \nu} 
-\frac{ \partial x^{ \nu } }{ \partial \lambda }
-\frac{ \partial x^{ \rho } }{\partial \lambda }.
-\]
-Thus, we see that in an arbitrary set of coordinates, the particle's trajectory satisfies the geodesic equation, as desired.  
-
-
-
+	In this section, we use the fact that 
+		\[
+		\frac{d^2 x^{ \prime \mu}}{d \lambda^2} = 0
+		\]
+	to show that in an arbitrary set of coordinates $x^{\mu}(\lambda)$, we have that in a vanishingly small spacetime region, the trajectory of the particle satisfies the \textit{geodesic equation}, which can be defined as
+		\[
+		\frac{ d^2 x^{ \mu } }{d \lambda^2 } = 
+		- \Gamma^{ \mu }_{ \nu \rho } 
+		\frac{d x^{\nu} }{ d \lambda } 
+		\frac{ d x^{ \rho } }{d \lambda} . 
+		\]
+	Here, the $\Gamma^{\mu}_{\nu \rho}$ are the \textit{Christoffel coefficients}, which can be defined as 
+		\[
+		\Gamma_{ \nu \rho }^{ \mu } \equiv 
+		\frac{ \partial x^{ \mu } }{ \partial x^{ \prime \sigma } }
+		\frac{ \partial^2 x^{ \prime \sigma } }{ \partial x^{ \nu } \partial x^{ \rho } }.
+		\]
+	To derive this geodesic equation, we begin by noting that, by the chain rule, we have
+		\[
+		\frac{ d x^{ \prime \mu } }{ d \lambda } = 
+		\frac{  \partial x^{ \prime \mu} }{ \partial x^{ \rho } } 
+		\frac{ d x^{ \rho } }{ d \lambda }.
+		\]
+	Now, we can differentiate with respect to $\lambda$, and use the chain rule once again, to obtain 
+		\[
+		\frac{ d^2 x^{ \prime \mu } }{ d \lambda^2 } = 
+		\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \rho } } 
+		\frac{ d^2 x^{ \rho } }{ d \lambda^2 }
+		+ 
+		\frac{ \partial^2 x^{ \prime \mu } }{\partial x^{ \rho } \partial x^{ \nu } }
+		\frac{ \partial x^{ \nu } }{ \partial \lambda }
+		\frac{ \partial x^{ \rho } }{\partial \lambda } .
+		\]
+	But this must be equal to zero, so that we have 
+		\[
+		\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \rho } } 
+		\frac{ d^2 x^{ \rho } }{ d \lambda^2 } 
+		=
+		-
+		\frac{ \partial^2 x^{ \prime \mu } }{\partial x^{ \rho } \partial x^{ \nu } }
+		\frac{ \partial x^{ \nu } }{ \partial \lambda }
+		\frac{ \partial x^{ \rho } }{\partial \lambda }.
+		\]
+	This almost gives us our desired geodesic equation.  To finish the derivation, we can multiply both sides of the above equation by the partial derivative
+		\[
+		\frac{ \partial x^{ \mu } }{ \partial x^{ \prime \mu } }
+		\]
+	to obtain
+		\[
+		\frac{ \partial x^{ \mu } }{ \partial x^{ \prime \mu } }
+		\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \rho } } 
+		\frac{ d^2 x^{ \rho } }{ d \lambda^2 } \
+		=
+		-
+		\frac{ \partial x^{ \mu } }{ \partial x^{ \prime \mu } }
+		\frac{ \partial^2 x^{ \prime \mu } }{\partial x^{ \rho } \partial x^{ \nu } }
+		\frac{ \partial x^{ \nu } }{ \partial \lambda }
+		\frac{ \partial x^{ \rho } }{\partial \lambda }.
+		\]
+	By the chain rule (and by noting that the derivative of $x^{ \rho}$ is a total derivative), the left hand side of this above equation simplifies to 
+		\[
+		\frac{ \partial^2 x^{ \mu } }{ \partial \lambda^2 }.
+		\]
+	Thus, we have that 
+		\[
+		\frac{ \partial^2 x^{ \mu } }{ \partial \lambda^2 }
+		= 
+		-
+		\left( 
+		\frac{ \partial x^{ \mu } }{ \partial x^{ \prime \mu } }
+		\frac{ \partial^2 x^{ \prime \mu } }{\partial x^{ \rho } \partial x^{ \nu } }
+		\right)
+		\frac{ \partial x^{ \nu } }{ \partial \lambda }
+		\frac{ \partial x^{ \rho } }{\partial \lambda }
+		=
+		-
+		\Gamma^{\mu}_{\rho \nu} 
+		\frac{ \partial x^{ \nu } }{ \partial \lambda }
+		\frac{ \partial x^{ \rho } }{\partial \lambda }.
+		\]
+	Thus, we see that in an arbitrary set of coordinates, the particle's trajectory satisfies the geodesic equation, as desired.  
 
 \section{Symmetry in the Christoffel Coefficients}
-
-In order to justify calculations made later, we note that the Christoffel coefficients, as defined above, are symmetric on their lower coordinate indices.  That is, we have that 
-\[
-\Gamma^{ \mu }_{ \nu \rho } 
-= 
-\Gamma^{ \mu }_{ \rho \nu }.
-\]
-This is a consequence of Schwarz theorem in analysis, which asserts equality of mixed partials.  This gives us that 
-\[
-\frac{ \partial^2 x^{ \prime \sigma } }{ \partial x^{ \nu }  \partial x^{ \rho } } 
-=
-\frac{ \partial^2 x^{ \prime \sigma } }{ \partial x^{ \rho }  \partial x^{ \nu } },
-\]
-which clearly implies that 
-\[
-\Gamma_{ \rho \nu }^{ \mu } = \Gamma_{ \nu \rho }^{ \mu } .
-\]
-
-
-
+	In order to justify calculations made later, we note that the Christoffel coefficients, as defined above, are symmetric on their lower coordinate indices.  That is, we have that 
+		\[
+		\Gamma^{ \mu }_{ \nu \rho } 
+		= 
+		\Gamma^{ \mu }_{ \rho \nu }.
+		\]
+	This is a consequence of Schwarz theorem in analysis, which asserts equality of mixed partials.  This gives us that 
+		\[
+		\frac{ \partial^2 x^{ \prime \sigma } }{ \partial x^{ \nu }  \partial x^{ \rho } } 
+		=
+		\frac{ \partial^2 x^{ \prime \sigma } }{ \partial x^{ \rho }  \partial x^{ \nu } },
+		\]
+	which clearly implies that 
+		\[
+		\Gamma_{ \rho \nu }^{ \mu } = \Gamma_{ \nu \rho }^{ \mu } .
+		\]
 
 \section{Symmetry of The Metric Tensor}
-
-Consider the metric tensor defined as 
-\[
-g_{ \rho \sigma } =
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \rho } } 
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \sigma } } 
-\eta_{ \mu \nu } .
-\]
-Here, $\eta_{\mu \nu}$ is the Minkowski metric tensor, defined as
-\[
-\eta_{\mu \nu} 
-\equiv
-\begin{cases}
--1 & \text{for} \,\, \mu = \nu = 0 \\
-2 & \text{for} \,\, \mu = \nu = 1,2,3 \\
-0 & \text{for} \,\, \mu \neq \nu
-\end{cases}.
-\]
-Thus, if $\mu \neq \nu$, we have that
-\[
-g_{ \mu \nu}
- =  
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } 
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } 
-\eta_{ \mu \nu } 
-=
-0
-=
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \nu } } 
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \mu } } 
-\eta_{ \nu \mu } 
-=
-g_{\nu \mu}.
-\]
-If $\mu = \nu$, then we have that 
-\[
-g_{\mu \nu} 
-=
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } 
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } 
-\eta_{ \mu \nu } 
-=
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } 
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } 
-\eta_{ \mu \mu }
-=
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \nu } } 
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \mu } } 
-\eta_{ \nu \mu } 
-=
-g_{ \nu \mu} .
-\]
-Now, the inverse metric tensor $g^{\mu \nu}$ is defined by the condition 
-\[
-g^{ \mu \rho } g_{ \rho \nu } 
-= 
-g_{ \nu \rho } g^{ \rho \mu } 
-= 
-\delta_{ \nu }^{ \mu } .
-\]
-Again, if $\mu \neq \nu$, then 
-\[
-g^{ \mu \nu } = g^{ \nu \mu } = 0.
-\]
-If $\mu = \nu$, then we have that in the expression 
-\[
-g^{ \mu \nu} g_{ \mu \nu } 
-=
-g_{\nu \mu } g^{ \nu \mu },
-\]
-then the terms $g_{\mu \nu}$ and $g_{\nu \mu}$ cancel, since they are equal as shown above, which gives us that 
-\[
-g^{ \mu \nu } = g^{ \nu \mu },
-\]
-as desired.  
+	Consider the metric tensor defined as 
+		\[
+		g_{ \rho \sigma } =
+		\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \rho } } 
+		\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \sigma } } 
+		\eta_{ \mu \nu } .
+		\]
+	Here, $\eta_{\mu \nu}$ is the Minkowski metric tensor, defined as
+		\[
+		\eta_{\mu \nu} 
+		\equiv
+		\begin{cases}
+		-1 & \text{for} \,\, \mu = \nu = 0 \\
+		1 & \text{for} \,\, \mu = \nu = 1,2,3 \\
+		0 & \text{for} \,\, \mu \neq \nu
+		\end{cases}.
+		\]
+	Thus, if $\mu \neq \nu$, we have that
+		\[
+		g_{ \mu \nu}
+		 =  
+		\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } 
+		\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } 
+		\eta_{ \mu \nu } 
+		=
+		0
+		=
+		\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \nu } } 
+		\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \mu } } 
+		\eta_{ \nu \mu } 
+		=
+		g_{\nu \mu}.
+		\]
+	If $\mu = \nu$, then we have that 
+		\[
+		g_{\mu \nu} 
+		=
+		\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } 
+		\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } 
+		\eta_{ \mu \nu } 
+		=
+		\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } 
+		\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } 
+		\eta_{ \mu \mu }
+		=
+		\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \nu } } 
+		\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \mu } } 
+		\eta_{ \nu \mu } 
+		=
+		g_{ \nu \mu} .
+		\]
+	Now, the inverse metric tensor $g^{\mu \nu}$ is defined by the condition 
+		\[
+		g^{ \mu \rho } g_{ \rho \nu } 
+		= 
+		g_{ \nu \rho } g^{ \rho \mu } 
+		= 
+		\delta_{ \nu }^{ \mu } .
+		\]
+	Again, if $\mu \neq \nu$, then 
+		\[
+		g^{ \mu \nu } = g^{ \nu \mu } = 0.
+		\]
+	If $\mu = \nu$, then we have that in the expression 
+		\[
+		g^{ \mu \nu} g_{ \mu \nu } 
+		=
+		g_{\nu \mu } g^{ \nu \mu },
+		\]
+	then the terms $g_{\mu \nu}$ and $g_{\nu \mu}$ cancel, since they are equal as shown above, which gives us that 
+		\[
+		g^{ \mu \nu } = g^{ \nu \mu },
+		\]
+	as desired.  
 
 \section{Alternate Formula for the Christoffel Coefficients}
+	Now, we introduce the notation $\partial_{\mu}$, which is defined as 
+	\[
+	\partial_{\mu} \equiv \left( \frac{1}{c} \frac{ \partial }{  \partial t } , \frac{ \partial }{ \partial x} , \frac{ \partial }{ \partial y }, \frac{ \partial }{ \partial z } \right)_{\mu} .
+	\]
+	Using this notation, we now demonstrate that 
+	\[
+	\partial_{\rho} g_{\rho \nu} = \Gamma^{ \sigma }_{ \rho \mu } g_{ \sigma \nu } + \Gamma^{ \sigma }_{ \rho \nu } g_{ \mu \sigma } .
+	\]
+	To do this, first consider 
+	\[
+	\partial_{\rho} 
+	\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } 
+	\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \mu } } 
+	\eta_{ \alpha \beta } \right).
+	\]
+	We define $m$ to be 
+	\[
+	m \equiv 
+	\begin{cases} 
+	\dfrac{1}{c} ,& w = t \\
+	1 ,& w = x,y,z \\
+	\end{cases}
+	\]
+	Using the product rule, this is
+	\[
+	m \frac{ \partial^2 x^{ \prime \alpha } }{ \partial x^{ \mu } \partial x^{ \rho } } 
+	\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } }
+	\eta_{ \alpha \beta }
+	+
+	m \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } 
+	\frac{ \partial^2 x^{ \prime \beta } }{ \partial x^{ \nu } \partial x^{ \rho } } \eta_{ \alpha \beta }
+	\]
+	Now, note that
+	\[
+	\partial_{ \rho } \left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \right)
+	\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } \eta_{\alpha \beta } 
+	\]
+	is equal to
+	\[
+	\left( m \frac{ \partial^2 x^{ \prime \alpha } }{ \partial x^{ \mu } \partial x^{ \rho } } \right) \frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } \eta_{ \alpha \beta }.
+	\]
+	Finally, we also have that
+	\[
+	\partial_{ \rho } 
+	\left( \frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } }  \right)
+	\frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \eta_{ \alpha \beta} 
+	\]
+	is equal to 
+	\[
+	\left( m \frac{ \partial^2 x^{ \prime \beta } }{ \partial x^{ \nu } \partial x^{ \rho } } \right) \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \eta_{ \alpha \beta}
+	\]
+	From this, we see that the following formula holds:
+	\[
+	\partial_{\rho} 
+	\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } 
+	\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \mu } } 
+	\eta_{ \alpha \beta } \right)
+	-
+	\partial_{ \rho }
+	\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \right) 
+	\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } 
+	\eta_{ \alpha \beta }
+	-
+	\partial_{ \rho } 
+	\left( \frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } \right) 
+	\frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \eta_{\alpha \beta } 
+	=
+	0
+	\]
+	Now, let $\alpha = \mu$, and $\beta = \nu$.  Then we have 
+	\[
+	\frac{1}{m} \partial_{\rho} 
+	\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } 
+	\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \mu } } 
+	\eta_{ \alpha \beta } \right)
+	=
+	\frac{ 1}{m} \partial_{\rho} 
+	\left( \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } 
+	\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \mu } } 
+	\eta_{ \mu \nu } \right)
+	=
+	\partial_{ \rho } g_{ \mu \nu }
+	\]
+	Now, we have that 
+	\[
+	\partial_{ \rho } \left( \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu }} \right)
+	\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu } 
+	=
+	m \frac{ \partial^2 x^{ \prime \mu } }{ \partial x^{ \mu } \partial x^{ \rho } } \frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu } 
+	\]
+	and 
+	\[
+	\partial_{ \rho } \left( \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \nu } } \right) 
+	\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \mu } } \eta_{ \mu \nu } 
+	= 
+	 m \frac{ \partial^2 x^{ \prime \nu } }{ \partial x^{ \nu } \partial x^{ \rho } } 
+	 \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } \eta_{ \mu \nu } 
+	\]
+	But also, note that 
+	\begin{align*}
+	\Gamma^{ \sigma }_{ \rho \mu } &= \frac{ \partial x^{ \sigma } }{ \partial x^{ \prime \nu } } \frac{ \partial^{2} x^{ \prime \nu } }{ \partial x^{ \rho } \partial x^{ \mu } } \\
+	g_{ \sigma \nu } &= \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \sigma }} 
+	\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu } \\
+	\Gamma^{ \sigma }_{ \rho \nu } &= \frac{ \partial x^{ \sigma } }{ \partial x^{ \prime \mu } } \frac{ \partial^2 x^{ \prime \mu } }{ \partial x^{ \rho } \partial x^{ \nu } } \\
+	g_{ \mu \sigma } &= \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } \frac{ \partial x^{ \prime \nu } }{ \partial x^{ \sigma } } \eta_{ \mu \nu }
+	\end{align*}
+	Then we have that 
+	\begin{align*}
+	\Gamma_{\rho \mu }^{ \sigma } g_{ \sigma \nu } 
+	&= 
+	\frac{ \partial x^{ \sigma } }{ \partial x^{ \prime \nu } } 
+	\frac{ \partial^2 x^{ \prime \mu } }{ \partial x^{ \rho } \partial x^{ \mu } } 
+	\frac{ \partial x^{ \prime \mu }}{ \partial x^{ \sigma } } 
+	\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu } \\
+	\Gamma_{ \rho \nu }^{ \sigma } g_{ \mu \sigma } 
+	&= 
+	\frac{ \partial x^{ \sigma } }{ \partial x^{ \prime \mu } } 
+	\frac{ \partial^2 x^{ \prime \nu } }{ \partial x^{ \rho }  \partial ^{ \nu } } 
+	\frac{ \partial^{ x^{ \prime \mu } } }{ \partial x^{ \mu } } 
+	\frac{ \partial x^{ \prime \nu } }{ \partial x^{\sigma } } \eta_{ \mu \nu } 
+	\end{align*}
+	Now, note that by the chain rule, we have that 
+	\[
+	\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \sigma } } 
+	\frac{ \partial x^{ \sigma } }{ \partial x^{ \prime \nu } } 
+	=
+	\frac{ \partial x^{ \sigma } }{ \partial x^{ \prime nu } } 
+	\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \sigma } }
+	=
+	\delta_{\nu}^{ \mu }.
+	\]
+	Thus, noting that we don't need the Kronecker delta here, since the $g_{ \mu \nu }$ are already zero for $\mu \neq \nu$, we can simplify our formulas above:
+	\begin{align*}
+	\Gamma_{\rho \mu }^{ \sigma } g_{ \sigma \nu } &= 
+	\frac{ \partial^2 x^{ \prime \mu } }{ \partial x^{ \rho } \partial x^{ \mu } } 
+	\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu } \\
+	\Gamma_{ \rho \nu }^{ \sigma } g_{ \mu \sigma } 
+	&= 
+	\frac{ \partial^2 x^{ \prime \nu } }{ \partial x^{ \rho }  \partial ^{ \nu } } 
+	\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } }  \eta_{ \mu \nu } 
+	\end{align*}
 
-Now, we introduce the notation $\partial_{\mu}$, which is defined as 
-\[
-\partial_{\mu} \equiv \left( \frac{1}{c} \frac{ \partial }{  \partial t } , \frac{ \partial }{ \partial x} , \frac{ \partial }{ \partial y }, \frac{ \partial }{ \partial z } \right)_{\mu} .
-\]
-Using this notation, we now demonstrate that 
-\[
-\partial_{\rho} g_{\rho \nu} = \Gamma^{ \sigma }_{ \rho \mu } g_{ \sigma \nu } + \Gamma^{ \sigma }_{ \rho \nu } g_{ \mu \sigma } .
-\]
-To do this, first consider 
-\[
-\partial_{\rho} 
-\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } 
-\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \mu } } 
-\eta_{ \alpha \beta } \right).
-\]
-We define $m$ to be 
-\[
-m \equiv 
-\begin{cases} 
-\dfrac{1}{c} ,& w = t \\
-1 ,& w = x,y,z \\
-\end{cases}
-\]
-Using the product rule, this is
-\[
-m \frac{ \partial^2 x^{ \prime \alpha } }{ \partial x^{ \mu } \partial x^{ \rho } } 
-\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } }
-\eta_{ \alpha \beta }
-+
-m \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } 
-\frac{ \partial^2 x^{ \prime \beta } }{ \partial x^{ \nu } \partial x^{ \rho } } \eta_{ \alpha \beta }
-\]
-Now, note that
-\[
-\partial_{ \rho } \left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \right)
-\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } \eta_{\alpha \beta } 
-\]
-is equal to
-\[
-\left( m \frac{ \partial^2 x^{ \prime \alpha } }{ \partial x^{ \mu } \partial x^{ \rho } } \right) \frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } \eta_{ \alpha \beta }.
-\]
-Finally, we also have that
-\[
-\partial_{ \rho } 
-\left( \frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } }  \right)
-\frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \eta_{ \alpha \beta} 
-\]
-is equal to 
-\[
-\left( m \frac{ \partial^2 x^{ \prime \beta } }{ \partial x^{ \nu } \partial x^{ \rho } } \right) \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \eta_{ \alpha \beta}
-\]
-From this, we see that the following formula holds:
-\[
-\partial_{\rho} 
-\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } 
-\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \mu } } 
-\eta_{ \alpha \beta } \right)
--
-\partial_{ \rho }
-\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \right) 
-\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } 
-\eta_{ \alpha \beta }
--
-\partial_{ \rho } 
-\left( \frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } \right) 
-\frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \eta_{\alpha \beta } 
-=
-0
-\]
-Now, let $\alpha = \mu$, and $\beta = \nu$.  Then we have 
-\[
-\frac{1}{m} \partial_{\rho} 
-\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } 
-\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \mu } } 
-\eta_{ \alpha \beta } \right)
-=
-\frac{ 1}{m} \partial_{\rho} 
-\left( \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } 
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \mu } } 
-\eta_{ \mu \nu } \right)
-=
-\partial_{ \rho } g_{ \mu \nu }
-\]
-Now, we have that 
-\[
-\partial_{ \rho } \left( \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu }} \right)
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu } 
-=
-m \frac{ \partial^2 x^{ \prime \mu } }{ \partial x^{ \mu } \partial x^{ \rho } } \frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu } 
-\]
-and 
-\[
-\partial_{ \rho } \left( \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \nu } } \right) 
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \mu } } \eta_{ \mu \nu } 
-= 
- m \frac{ \partial^2 x^{ \prime \nu } }{ \partial x^{ \nu } \partial x^{ \rho } } 
- \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } \eta_{ \mu \nu } 
-\]
-But also, note that 
-\begin{align*}
-\Gamma^{ \sigma }_{ \rho \mu } &= \frac{ \partial x^{ \sigma } }{ \partial x^{ \prime \nu } } \frac{ \partial^{2} x^{ \prime \nu } }{ \partial x^{ \rho } \partial x^{ \mu } } \\
-g_{ \sigma \nu } &= \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \sigma }} 
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu } \\
-\Gamma^{ \sigma }_{ \rho \nu } &= \frac{ \partial x^{ \sigma } }{ \partial x^{ \prime \mu } } \frac{ \partial^2 x^{ \prime \mu } }{ \partial x^{ \rho } \partial x^{ \nu } } \\
-g_{ \mu \sigma } &= \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } \frac{ \partial x^{ \prime \nu } }{ \partial x^{ \sigma } } \eta_{ \mu \nu }
-\end{align*}
-Then we have that 
-\begin{align*}
-\Gamma_{\rho \mu }^{ \sigma } g_{ \sigma \nu } 
-&= 
-\frac{ \partial x^{ \sigma } }{ \partial x^{ \prime \nu } } 
-\frac{ \partial^2 x^{ \prime \mu } }{ \partial x^{ \rho } \partial x^{ \mu } } 
-\frac{ \partial x^{ \prime \mu }}{ \partial x^{ \sigma } } 
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu } \\
-\Gamma_{ \rho \nu }^{ \sigma } g_{ \mu \sigma } 
-&= 
-\frac{ \partial x^{ \sigma } }{ \partial x^{ \prime \mu } } 
-\frac{ \partial^2 x^{ \prime \nu } }{ \partial x^{ \rho }  \partial ^{ \nu } } 
-\frac{ \partial^{ x^{ \prime \mu } } }{ \partial x^{ \mu } } 
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{\sigma } } \eta_{ \mu \nu } 
-\end{align*}
-Now, note that by the chain rule, we have that 
-\[
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \sigma } } 
-\frac{ \partial x^{ \sigma } }{ \partial x^{ \prime \nu } } 
-=
-\frac{ \partial x^{ \sigma } }{ \partial x^{ \prime nu } } 
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \sigma } }
-=
-\delta_{\nu}^{ \mu }.
-\]
-Thus, noting that we don't need the Kronecker delta here, since the $g_{ \mu \nu }$ are already zero for $\mu \neq \nu$, we can simplify our formulas above:
-\begin{align*}
-\Gamma_{\rho \mu }^{ \sigma } g_{ \sigma \nu } &= 
-\frac{ \partial^2 x^{ \prime \mu } }{ \partial x^{ \rho } \partial x^{ \mu } } 
-\frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu } \\
-\Gamma_{ \rho \nu }^{ \sigma } g_{ \mu \sigma } 
-&= 
-\frac{ \partial^2 x^{ \prime \nu } }{ \partial x^{ \rho }  \partial ^{ \nu } } 
-\frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } }  \eta_{ \mu \nu } 
-\end{align*}
+	But now we see that these are equal to 
+	\[
+	\frac{ 1}{m} \partial_{ \rho } \left( \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } \right) \frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu }
+	\]
+	and 
+	\[
+	\frac{ 1}{ m} \partial_{ \rho } \left( \frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \right) \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu }  } \eta_{ \mu \nu } 
+	\]
+	from above. Now, by our equation 
+	\[
+	\partial_{\rho} 
+	\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } 
+	\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \mu } } 
+	\eta_{ \alpha \beta } \right)
+	-
+	\partial_{ \rho }
+	\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \right) 
+	\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } 
+	\eta_{ \alpha \beta }
+	-
+	\partial_{ \rho } 
+	\left( \frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } \right) 
+	\frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \eta_{\alpha \beta } 
+	=
+	0, 
+	\]
+	we see that the $m$ terms cancel, so that by the equalities shown above, we have that 
+	\[
+	\partial_{ \rho } g_{ \mu \nu } = \Gamma_{ \rho \mu }^{ \sigma } g_{ \sigma \nu } + \Gamma_{ \rho \nu }^{ \sigma } g_{ \mu \sigma } ,
+	\]
+	as desired.  \\
 
-But now we see that these are equal to 
-\[
-\frac{ 1}{m} \partial_{ \rho } \left( \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu } } \right) \frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \eta_{ \mu \nu }
-\]
-and 
-\[
-\frac{ 1}{ m} \partial_{ \rho } \left( \frac{ \partial x^{ \prime \nu } }{ \partial x^{ \nu } } \right) \frac{ \partial x^{ \prime \mu } }{ \partial x^{ \mu }  } \eta_{ \mu \nu } 
-\]
-from above. Now, by our equation 
-\[
-\partial_{\rho} 
-\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } 
-\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \mu } } 
-\eta_{ \alpha \beta } \right)
--
-\partial_{ \rho }
-\left( \frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \right) 
-\frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } 
-\eta_{ \alpha \beta }
--
-\partial_{ \rho } 
-\left( \frac{ \partial x^{ \prime \beta } }{ \partial x^{ \nu } } \right) 
-\frac{ \partial x^{ \prime \alpha } }{ \partial x^{ \mu } } \eta_{\alpha \beta } 
-=
-0, 
-\]
-we see that the $m$ terms cancel, so that by the equalities shown above, we have that 
-\[
-\partial_{ \rho } g_{ \mu \nu } = \Gamma_{ \rho \mu }^{ \sigma } g_{ \sigma \nu } + \Gamma_{ \rho \nu }^{ \sigma } g_{ \mu \sigma } ,
-\]
-as desired.  \\
-
-Now, note that from the above expression 
-\[
-\partial_{ \rho } g_{ \mu \nu } = \Gamma_{ \rho \mu }^{ \sigma } g_{ \sigma \nu } + \Gamma_{ \rho \nu }^{ \sigma } g_{ \mu \sigma } 
-\]
-we obtain the following formulas by plugging in $(\rho, \sigma) = (\mu, \rho), (\rho, \sigma) = (\nu, \rho)$, and $(\rho, \sigma) = (\sigma, \rho)$ respectively:
-\begin{align*}
-\partial_{\mu} g_{ \nu \sigma } 
-&= 
-\Gamma^{\rho}_{ \mu \nu } g_{ \rho \sigma } 
-+
-\Gamma^{ \rho}_{ \mu \sigma } g_{ \nu \rho } 
-\\
-\partial_{ \nu } g_{ \mu \sigma } 
-&=
-\Gamma^{ \rho }_{ \nu \mu } g_{ \rho \sigma } 
-+
-\Gamma^{ \rho }_{ \nu \sigma } g_{ \mu \rho } 
-\\
-\partial_{ \sigma } g_{ \mu \nu } 
-&=
-\Gamma^{ \rho }_{ \sigma \mu } g_{\rho \nu } 
-+
-\Gamma^{ \rho }_{ \sigma \nu } g_{ \mu \rho } 
-\end{align*}
-Using these equations, and the symmetry of the Christoffel coefficients and metric tensors, we have that 
-\begin{align*}
-\frac{1}{2} g^{ \rho \sigma } &\left( \partial_{ \mu } g_{ \nu \sigma } + \partial_{ \nu } g_{ \mu \sigma } - \partial_{ \sigma } g_{ \mu \nu } \right) = \\
-& \frac{ 1}{2} g^{ \rho \sigma } \Big( \Gamma^{\rho}_{ \mu \nu } g_{ \rho \sigma } 
-+
-\Gamma^{ \rho}_{ \mu \sigma } g_{ \nu \rho } 
-+ 
-\Gamma^{ \rho }_{ \nu \mu } g_{ \rho \sigma } 
-+
-\Gamma^{ \rho }_{ \nu \sigma } g_{ \mu \rho } 
--
-\left( \Gamma^{ \rho }_{ \sigma \mu } g_{\rho \nu } 
-+
-\Gamma^{ \rho }_{ \sigma \nu } g_{ \mu \rho } 
-\right) \Big) \\
-&= \frac{1}{2} \left( \Gamma^{ \rho }_{ \mu \nu } g_{ \rho \sigma } + \Gamma^{ \rho }_{ \nu \mu } g_{ \rho \sigma } \right)  \\
-&=  \Gamma^{ \rho }_{ \mu \nu }.
-\end{align*}
-Thus, gives us a formula for the Christoffel coefficients in terms of the metric tensor and its inverse, with no reference to locally intertial coordinates:
-\[
-\Gamma_{ \mu \nu }^{ \rho } = \frac{1}{2} \left( \partial_{ \mu } g_{ \nu \sigma } + \partial_{ \nu } g_{ \mu \sigma } - \partial_{ \sigma } g_{ \mu \nu } \right) 
-\]
-
-
-
-
-
-
+	Now, note that from the above expression 
+	\[
+	\partial_{ \rho } g_{ \mu \nu } = \Gamma_{ \rho \mu }^{ \sigma } g_{ \sigma \nu } + \Gamma_{ \rho \nu }^{ \sigma } g_{ \mu \sigma } 
+	\]
+	we obtain the following formulas by plugging in $(\rho, \sigma) = (\mu, \rho), (\rho, \sigma) = (\nu, \rho)$, and $(\rho, \sigma) = (\sigma, \rho)$ respectively:
+	\begin{align*}
+	\partial_{\mu} g_{ \nu \sigma } 
+	&= 
+	\Gamma^{\rho}_{ \mu \nu } g_{ \rho \sigma } 
+	+
+	\Gamma^{ \rho}_{ \mu \sigma } g_{ \nu \rho } 
+	\\
+	\partial_{ \nu } g_{ \mu \sigma } 
+	&=
+	\Gamma^{ \rho }_{ \nu \mu } g_{ \rho \sigma } 
+	+
+	\Gamma^{ \rho }_{ \nu \sigma } g_{ \mu \rho } 
+	\\
+	\partial_{ \sigma } g_{ \mu \nu } 
+	&=
+	\Gamma^{ \rho }_{ \sigma \mu } g_{\rho \nu } 
+	+
+	\Gamma^{ \rho }_{ \sigma \nu } g_{ \mu \rho } 
+	\end{align*}
+	Using these equations, and the symmetry of the Christoffel coefficients and metric tensors, we have that 
+	\begin{align*}
+	\frac{1}{2} g^{ \rho \sigma } &\left( \partial_{ \mu } g_{ \nu \sigma } + \partial_{ \nu } g_{ \mu \sigma } - \partial_{ \sigma } g_{ \mu \nu } \right) = \\
+	& \frac{ 1}{2} g^{ \rho \sigma } \Big( \Gamma^{\rho}_{ \mu \nu } g_{ \rho \sigma } 
+	+
+	\Gamma^{ \rho}_{ \mu \sigma } g_{ \nu \rho } 
+	+ 
+	\Gamma^{ \rho }_{ \nu \mu } g_{ \rho \sigma } 
+	+
+	\Gamma^{ \rho }_{ \nu \sigma } g_{ \mu \rho } 
+	-
+	\left( \Gamma^{ \rho }_{ \sigma \mu } g_{\rho \nu } 
+	+
+	\Gamma^{ \rho }_{ \sigma \nu } g_{ \mu \rho } 
+	\right) \Big) \\
+	&= \frac{1}{2} \left( \Gamma^{ \rho }_{ \mu \nu } g_{ \rho \sigma } + \Gamma^{ \rho }_{ \nu \mu } g_{ \rho \sigma } \right)  \\
+	&=  \Gamma^{ \rho }_{ \mu \nu }.
+	\end{align*}
+	Thus, gives us a formula for the Christoffel coefficients in terms of the metric tensor and its inverse, with no reference to locally intertial coordinates:
+	\[
+	\Gamma_{ \mu \nu }^{ \rho } = \frac{1}{2} \left( \partial_{ \mu } g_{ \nu \sigma } + \partial_{ \nu } g_{ \mu \sigma } - \partial_{ \sigma } g_{ \mu \nu } \right) 
+	\]
 
 \section{The Newtonian Limit}
+	The formula for the trajectory of a particle subject only to gravitational forces is
+		\[
+			\frac{d^2x^\rho}{d\tau^2} = -\Gamma^\rho_{\mu\nu}\frac{dx^\mu}{d\tau}\frac{dx^\nu}{d\tau}
+		\]
+	Since we want information about the $(\mu,\nu) = (0,0)$ component of $h$, we look at the $\mu = \nu = 0$ component of the above equation
+		\begin{equation}
+			\frac{d^2x^\rho}{d\tau^2} = -\Gamma^\rho_{00}\left(\frac{dx^0}{d\tau}\right)^2
+			\label{eq:trajectory00}
+		\end{equation}
+	Now let us find $\Gamma^\rho_{00}$. By Part (d), $\Gamma^\rho_{\mu\nu} = \frac{1}{2}g^{\rho\sigma}(\partial_\nu g_{\nu\sigma} + \partial_\nu g_{\mu\sigma}-\partial_\sigma g_{\nu\mu})$. For $\nu=\mu=0$,
+		\begin{align*}
+			\Gamma^\rho_{00} &= \frac{1}{2}g^{\rho\sigma}(\partial_0 g_{0\sigma} + \partial_0 g_{0\sigma}-\partial_\sigma g_{00})\\
+			&= \frac{1}{2}g^{\rho\sigma}(0 + 0 - \partial_\sigma h_{00}) &\text{by Newtonian limit assumptions}\\
+			&= -\frac{1}{2}g^{\rho\sigma}\partial_\sigma h_{00}\\
+			&\approx -\frac{1}{2}\eta^{\rho\sigma}\partial_\sigma h_{00}
+		\end{align*}
+	We prove the last line ($g^{\rho\sigma} \approx \eta^{\rho\sigma}$): Since $g_{\rho\sigma} = \eta_{\rho\sigma} + h_{\rho\sigma}$ with $|h_{\rho\sigma}|<<1$, we have that $g_{\rho\sigma} \approx \eta_{\rho\sigma}$. Notice that because $g^{\mu\rho}g_{\rho\nu} = \delta_\nu^\mu$, we have that the matrix $G_*=(g_{ij})$ and the matrix $G^*=(g^{ij})$ are inverses. Similarly, $N_*=(\eta_{ij})$ and $N^* = (\eta^{ij})$ are inverses. Since $G_*\approx N_*$ then $G^*\approx N^*$ so $g^{\rho\sigma}\approx \eta^{\rho\sigma}$.
+	% {\color{red} where the last $\approx$ is true because $g_{\mu\nu} = \eta_{\mu\nu} + h_{\mu\nu}$ and $g^{\mu\rho}g_{\rho\nu} = \delta^\mu_\nu$ imply $g^{\mu\nu} = \eta^{\mu\nu} - h^{\mu\nu}$ except I've yet to actually prove that 
 
+	Substituting this equation into (\ref{eq:trajectory00}). we get
+		\[\frac{d^2x^\rho}{d\tau^2} \approx \frac{1}{2}\eta^{\rho\sigma}\partial_\sigma h_{00}\left(\frac{dx^0}{d\tau}\right)^2\]
+	Let us consider the spatial coordinates $\rho = 1,2,3$. The right hand side is a summation over $\sigma = 0,1,2,3$. However, $\eta^{\rho\sigma}$ is only nonzero when $\rho=\sigma$, and since $\rho=1,2,3$, $\eta^{\rho\rho} = 1$. Then, 
+		\[\frac{d^2x^\rho}{d\tau^2} \approx \frac{1}{2}\partial_\sigma h_{00}\frac{dx^{0^2}}{d\tau^2}\]
+	which implies
+		\[\frac{1}{2}\partial_\sigma h_{00}\approx \frac{d^2x^\rho}{d\tau^2} \frac{d\tau^2}{dx^{0^2}} = \frac{d^2x^\rho}{dx^{0^2}} = \frac{d^2x^\rho}{d(ct)^2} = \frac{1}{c^2}\frac{d^2x^\rho}{dt^2}\]
+	so that for the spatial dimensions $\rho=1,2,3$,
+		\[\frac{d^2x^\rho}{dt^2} \approx \frac{1}{2}c^2\partial_\sigma h_{00}\]
+	Then, 
+		\begin{align*}
+			\vec{F}_g &= -m\vec{\nabla}\Phi = m\vec{a}\\
+				&= m\left(\frac{d^2x^1}{dt^2},\frac{d^2x^2}{dt^2},\frac{d^2x^3}{dt^2}\right)\\
+				&\approx m\left(\frac{1}{2}c^2\partial_1 h_{00}, \frac{1}{2}c^2\partial_2 h_{00}, \frac{1}{2}c^2\partial_3 h_{00}\right)\\
+				&= \frac{1}{2}mc^2\left(\frac{\partial h_{00}}{\partial x^1}, \frac{\partial h_{00}}{\partial x^2}, \frac{\partial h_{00}}{\partial x^3}\right)\\
+				&=\boxed{\frac{1}{2}mc^2\vec{\nabla}h_{00}}
+		\end{align*}
+	Pattern-matching the left and right hand sides of the formula, we get $\vec{\nabla}\Phi \approx -\frac{1}{2}c^2\vec{\nabla}h_{00}$ which implies $\Phi \approx -\frac{1}{2}c^2 h_{00}$. Thus, because $g_{00} = \eta_{00} + h_{00} = -1 + h_{00}$, we have that
+		\[\Phi\approx -\frac{c^2}{2}(1 + g_{00})\implies g_{00}\approx -1-\frac{2\Phi}{c^2}\]
+
+	
 \section{Gravitational Fields and Time Dilation}
 
 \section{An Application to Spherically Symmetric Objects}
